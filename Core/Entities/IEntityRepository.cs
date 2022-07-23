@@ -1,5 +1,4 @@
-﻿using Core.DataAccess;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Core.Entities
 {

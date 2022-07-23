@@ -1,4 +1,4 @@
-﻿using Core.DataAccess;
+﻿using Core.Entities;
 
 namespace Shared.Entities.Concrete
 {

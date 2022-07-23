@@ -1,6 +1,5 @@
-﻿
-namespace Core.DataAccess
-{ 
+﻿namespace Core.Entities
+{
     public interface IEntity
     {
     }
