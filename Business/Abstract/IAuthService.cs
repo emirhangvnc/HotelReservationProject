@@ -1,5 +1,5 @@
 ﻿using Core.Utilities.Results;
-using Entities.DTOs.Concrete.AuthDto;
+using Entities.DTOs.Concrete.AuthDTO;
 using Shared.Entities.Concrete;
 using Shared.Utilities.Security.JWT;
 

@@ -1,10 +1,9 @@
-﻿using Core.Entities;
-using Entities.DTOs.Base;
+﻿using Entities.DTOs.Base;
+using Core.Entities;
 
 namespace Entities.DTOs.Concrete.HotelDTO
 {
-    public class HotelDeleteDTO : IBaseId<int>, IDto
+    public class HotelDeleteDTO : BaseIdDTO,IDto
     {
-        public int Id { get; set; }
     }
 }

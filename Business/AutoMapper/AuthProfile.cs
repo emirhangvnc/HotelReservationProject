@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Entities.DTOs.Concrete.AuthDto;
+using Entities.DTOs.Concrete.AuthDTO;
 using Shared.Entities.Concrete;
 
 namespace Business.AutoMapper

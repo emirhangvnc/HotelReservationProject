@@ -1,6 +1,6 @@
 ﻿using Core.Entities;
 
-namespace Entities.DTOs.Concrete.AuthDto
+namespace Entities.DTOs.Concrete.AuthDTO
 {
     public class UserForLoginDTO : IDto
     {

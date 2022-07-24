@@ -1,10 +1,11 @@
 ﻿using Business.Abstract.Base;
-using Entities.Concrete;
-using Entities.DTOs.Concrete.HotelDTO;
+using Entities.Concrete.Image;
+using Entities.DTOs.Concrete.HotelImageDTO;
 
 namespace Business.Abstract
 {
-    public interface IHotelImageService : IBaseService<Hotel, HotelAddDTO, HotelDeleteDTO, HotelUpdateDTO>
+    public interface IHotelImageService : IBaseImageService<HotelImage,
+        HotelImageAddDTO, HotelImageDeleteDTO, HotelImageUpdateDTO>
     {
     }
 }

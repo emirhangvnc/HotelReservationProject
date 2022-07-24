@@ -11,9 +11,8 @@ namespace Core.Utilities.Helpers.FileHelper
             string extension = Path.GetExtension(file.FileName).ToUpper();
             string newFileName = Guid.NewGuid().ToString("N") + extension;
             if (!Directory.Exists(directory + path))
-            {
                 Directory.CreateDirectory(directory + path);
-            }
+
             using (FileStream fileStream = File.Create(directory + path + newFileName))
             {
                 file.CopyTo(fileStream);
