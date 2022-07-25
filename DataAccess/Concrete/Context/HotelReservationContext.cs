@@ -14,14 +14,13 @@ namespace DataAccess.Concrete.Context
         }
         public DbSet<City> cities { get; set; }
         public DbSet<Country> countries { get; set; }
-        public DbSet<HotelImage> HotelImages { get; set; }
-        public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<RoomImage> RoomImages { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<User> Users { get; set; }
-        //public DbSet<SocialMedia> SocialMedias { get; set; }
-        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
-        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<HotelImage> hotelImages { get; set; }
+        public DbSet<Hotel> hotels { get; set; }
+        public DbSet<Reservation> reservations { get; set; }
+        public DbSet<RoomImage> roomImages { get; set; }
+        public DbSet<Room> rooms { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<UserOperationClaim> userOperationClaims { get; set; }
+        public DbSet<OperationClaim> operationClaims { get; set; }
     }
 }

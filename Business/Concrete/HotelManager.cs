@@ -30,6 +30,11 @@ namespace Business.Concrete
             return new SuccessDataResult<Hotel>(result,"Otel Listelendi");
         }
 
+        public IDataResult<List<HotelDetailDTO>> GetHotelDetails()
+        {
+            return new SuccessDataResult<List<HotelDetailDTO>>(_hotelDal.GetHotelDetails());
+        }
+
         public IResult Add(HotelAddDTO addedDto)
         {
             var hotel = _mapper.Map<Hotel>(addedDto);
