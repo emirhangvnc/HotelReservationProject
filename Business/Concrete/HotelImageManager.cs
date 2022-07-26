@@ -9,6 +9,7 @@ using Entities.Concrete.Image;
 using Entities.DTOs.Concrete.HotelImageDTO;
 using Microsoft.AspNetCore.Http;
 
+
 namespace Business.Concrete
 {
     public class HotelImageManager:IHotelImageService

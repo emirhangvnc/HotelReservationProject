@@ -4,6 +4,8 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete.Info;
 using Entities.DTOs.Concrete.CountryDTO;
+using Business.ValidationRules.FluentValidation.CountryValidator;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -30,7 +32,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Country>("Ülke Bulunamadı");
             return new SuccessDataResult<Country>(result);
         }
-
+        [ValidationAspect(typeof(CountryAddDTOValidator))]
         public IResult Add(CountryAddDTO addedDto)
         {
             var result = _countryDal.Get(c => c.CountryCode == addedDto.CountryCode);
@@ -41,7 +43,7 @@ namespace Business.Concrete
             _countryDal.Add(country);
             return new SuccessResult("Ülke Eklendi");
         }
-
+        [ValidationAspect(typeof(CountryDeleteDTOValidator))]
         public IResult Delete(CountryDeleteDTO deletedDto)
         {
             var result = _countryDal.Get(u => u.Id == deletedDto.Id);
@@ -51,7 +53,7 @@ namespace Business.Concrete
             _countryDal.Delete(result);
             return new SuccessResult("Ülke Silindi");
         }
-
+        [ValidationAspect(typeof(CountryUpdateDTOValidator))]
         public IResult Update(CountryUpdateDTO updatedDto)
         {
             var result = _countryDal.Get(u => u.Id == updatedDto.Id);

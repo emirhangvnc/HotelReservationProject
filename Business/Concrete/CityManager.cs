@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation.CityValidator;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete.Info;
@@ -30,7 +32,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<City>("Şehir Bulunamadı");
             return new SuccessDataResult<City>(result);
         }
-
+        [ValidationAspect(typeof(CityAddDTOValidator))]
         public IResult Add(CityAddDTO addedDto)
         {
             var result = _cityDal.Get(c => c.CityCode == addedDto.CityCode);
@@ -41,7 +43,7 @@ namespace Business.Concrete
             _cityDal.Add(city);
             return new SuccessResult("Şehir Eklendi");
         }
-
+        [ValidationAspect(typeof(CityDeleteDTOValidator))]
         public IResult Delete(CityDeleteDTO deletedDto)
         {
             var result = _cityDal.Get(u => u.Id == deletedDto.Id);
@@ -51,7 +53,7 @@ namespace Business.Concrete
             _cityDal.Delete(result);
             return new SuccessResult("Şehir Silindi");
         }
-
+        [ValidationAspect(typeof(CityUpdateDTOValidator))]
         public IResult Update(CityUpdateDTO updatedDto)
         {
             var result = _cityDal.Get(u => u.Id == updatedDto.Id);
