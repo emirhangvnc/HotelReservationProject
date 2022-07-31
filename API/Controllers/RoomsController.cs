@@ -1,25 +1,25 @@
 ﻿using Business.Abstract;
-using Entities.DTOs.Concrete.HotelDTO;
+using Entities.DTOs.Concrete.RoomDTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HotelController : ControllerBase
+    public class RoomsController : ControllerBase
     {
-        IHotelService _hotelService;
+        IRoomService _roomService;
 
-        public HotelController(IHotelService hotelService)
+        public RoomsController(IRoomService roomService)
         {
-            _hotelService = hotelService;
+            _roomService = roomService;
         }
 
         [HttpGet]
         [Route("[action]")]
         public IActionResult GetAll()
         {
-            var result = _hotelService.GetAll();
+            var result = _roomService.GetAll();
             if (result.Success)
                 return Ok(result);
 
@@ -27,9 +27,9 @@ namespace API.Controllers
         }
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetByHotelId(int hotelId)
+        public IActionResult GetByRoomId(int roomId)
         {
-            var result = _hotelService.GetById(hotelId);
+            var result = _roomService.GetById(roomId);
             if (result.Success)
                 return Ok(result);
 
@@ -37,9 +37,9 @@ namespace API.Controllers
         }
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetHotelDetails()
+        public IActionResult GetRoomDetails()
         {
-            var result = _hotelService.GetHotelDetails();
+            var result = _roomService.GetRoomDetails();
             if (result.Success)
                 return Ok(result);
 
@@ -47,9 +47,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(HotelAddDTO hotelAddDTO)
+        public IActionResult Add(RoomAddDTO roomAddDTO)
         {
-            var result = _hotelService.Add(hotelAddDTO);
+            var result = _roomService.Add(roomAddDTO);
             if (result.Success)
                 return Ok(result);
 
@@ -57,9 +57,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(HotelDeleteDTO hotelDeleteDTO)
+        public IActionResult Delete(RoomDeleteDTO roomDeleteDTO)
         {
-            var result = _hotelService.Delete(hotelDeleteDTO);
+            var result = _roomService.Delete(roomDeleteDTO);
             if (result.Success)
                 return Ok(result);
 
@@ -67,9 +67,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(HotelUpdateDTO hotelUpdateDTP)
+        public IActionResult Update(RoomUpdateDTO roomUpdateDTP)
         {
-            var result = _hotelService.Update(hotelUpdateDTP);
+            var result = _roomService.Update(roomUpdateDTP);
             if (result.Success)
                 return Ok(result);
 

@@ -14,7 +14,7 @@ namespace Business.ValidationRules.FluentValidation.HotelValidator
             RuleFor(h => h.PhoneNumber).NotEmpty().WithMessage($"");
             RuleFor(h => h.PhoneNumber).MaximumLength(20).WithMessage($"");
             RuleFor(h => h.Address).NotEmpty().WithMessage($"");
-            RuleFor(h => h.Address).MaximumLength(60).WithMessage($"");
+            RuleFor(h => h.Address).MaximumLength(100).WithMessage($"");
         }
     }
 }

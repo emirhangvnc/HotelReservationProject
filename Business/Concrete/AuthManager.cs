@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation.AuthValidator;
+using Business.ValidationRules.FluentValidation.UserValidator;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using Entities.DTOs.Concrete.AuthDTO;
@@ -19,7 +22,7 @@ namespace Business.Concrete
             _userService = userService;
             _tokenHelper = tokenHelper;
         }
-
+        [ValidationAspect(typeof(UserForLoginDTOValidator))]
         public IDataResult<User> Login(UserForLoginDTO userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
@@ -31,11 +34,11 @@ namespace Business.Concrete
 
             return new SuccessDataResult<User>(userToCheck.Data, "Giriş Başarılı");
         }
-
-        public IDataResult<User> Register(UserForRegisterDTO userForRegisterDto, string password)
+        [ValidationAspect(typeof(UserForRegisterDTOValidator))]
+        public IDataResult<User> Register(UserForRegisterDTO userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
-            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
             var user = new UserAddDTO
             {
                 Email = userForRegisterDto.Email,

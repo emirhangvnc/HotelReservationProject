@@ -1,11 +1,11 @@
-﻿using Entities.DTOs.Concrete.UserDTO;
+﻿using Entities.DTOs.Concrete.AuthDTO;
 using FluentValidation;
 
-namespace Business.ValidationRules.FluentValidation.UserValidator
+namespace Business.ValidationRules.FluentValidation.AuthValidator
 {
-    public class UserAddDTOValidator : AbstractValidator<UserAddDTO>
+    public class UserForRegisterDTOValidator : AbstractValidator<UserForRegisterDTO>
     {
-        public UserAddDTOValidator()
+        public UserForRegisterDTOValidator()
         {
             RuleFor(u => u.FirstName).NotEmpty().WithMessage($"");
             RuleFor(u => u.FirstName).MaximumLength(50).WithName($"");
@@ -13,7 +13,7 @@ namespace Business.ValidationRules.FluentValidation.UserValidator
             RuleFor(u => u.LastName).MaximumLength(50).WithName($"");
             RuleFor(u => u.Email).NotNull().WithMessage($"");
             RuleFor(u => u.Email).MaximumLength(60).WithName($"");
-            RuleFor(u => u.Status).NotNull();
+            RuleFor(u => u.Password).NotNull();
         }
     }
 }

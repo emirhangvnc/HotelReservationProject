@@ -13,14 +13,14 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (HotelReservationContext context = new HotelReservationContext())
             {
-                var result = from h in context.hotels
-                             join r in context.rooms
+                var result = from h in context.Hotels
+                             join r in context.Rooms
                              on h.Id equals r.HotelId
-                             join hi in context.hotelImages
+                             join hi in context.HotelImages
                              on h.Id equals hi.HotelId
-                             join c in context.cities
+                             join c in context.Cities
                              on h.CityId equals c.Id
-                             join co in context.countries
+                             join co in context.Countries
                              on c.CountryId equals co.Id
 
                              select new HotelDetailDTO
@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  PhoneNumber=h.PhoneNumber,
                                  CountryName=co.CountryName,
                                  CityName=c.CityName,
-                                 Rooms= (from i in context.rooms where i.HotelId == h.Id select i).ToList()
+                                 Rooms= (from i in context.Rooms where i.HotelId == h.Id select i).ToList()
                              };
                 return filter == null ?
                     result.ToList() :

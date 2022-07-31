@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation.HotelImageValidator;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper;
 using Core.Utilities.Results;
@@ -31,10 +33,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<HotelImage>(_hotelImageDal.Get(h => h.Id == id), "Otel Listelendi");
         }
+        [ValidationAspect(typeof(HotelImageAddDTOValidator))]
         public IResult Add(IFormFile file, HotelImageAddDTO addedDto)
         {
             IResult result = BusinessRules.Run(
-                CheckIfImageExtensionValid(file)
+                CheckIfImageExtensionValid(file),
+                CheckIfImageLimitExpired(addedDto.HotelId)
                 );
 
             if (result != null)
@@ -47,6 +51,7 @@ namespace Business.Concrete
             _hotelImageDal.Add(image);
             return new SuccessResult("Otel Eklendi");
         }
+        [ValidationAspect(typeof(HotelImageDeleteDTOValidator))]
         public IResult Delete(IFormFile file, HotelImageDeleteDTO deletedDto)
         {
             IResult result = BusinessRules.Run(
@@ -61,6 +66,7 @@ namespace Business.Concrete
             _hotelImageDal.Delete(hotelImage);
             return new SuccessResult("Otel Resmi Silindi");
         }
+        [ValidationAspect(typeof(HotelImageUpdateDTOValidator))]
         public IResult Update(IFormFile file, HotelImageUpdateDTO updatedDto)
         {
             IResult result = BusinessRules.Run(
@@ -91,6 +97,13 @@ namespace Business.Concrete
             if (_hotelImageDal.IsExist(id))
                 return new SuccessResult();
             return new ErrorResult(Messages.HotelImageMustBeExists);
+        }
+        private IResult CheckIfImageLimitExpired(int id)
+        {
+            int result = _hotelImageDal.GetAll(r => r.HotelId == id).Count;
+            if (result >= 10)
+                return new ErrorResult("En Fazla 10 Otel Resmi Eklenebilir");
+            return new SuccessResult();
         }
     }
 }

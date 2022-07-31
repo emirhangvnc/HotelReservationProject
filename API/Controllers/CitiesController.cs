@@ -1,25 +1,25 @@
 ﻿using Business.Abstract;
-using Entities.DTOs.Concrete.RoomDTO;
+using Entities.DTOs.Concrete.CityDTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomController : ControllerBase
+    public class CitiesController : ControllerBase
     {
-        IRoomService _roomService;
+        ICityService _cityService;
 
-        public RoomController(IRoomService roomService)
+        public CitiesController(ICityService cityService)
         {
-            _roomService = roomService;
+            _cityService = cityService;
         }
 
         [HttpGet]
         [Route("[action]")]
         public IActionResult GetAll()
         {
-            var result = _roomService.GetAll();
+            var result = _cityService.GetAll();
             if (result.Success)
                 return Ok(result);
 
@@ -27,19 +27,9 @@ namespace API.Controllers
         }
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetByRoomId(int roomId)
+        public IActionResult GetByCityId(int cityId)
         {
-            var result = _roomService.GetById(roomId);
-            if (result.Success)
-                return Ok(result);
-
-            return BadRequest(result);
-        }
-        [HttpGet]
-        [Route("[action]")]
-        public IActionResult GetRoomDetails()
-        {
-            var result = _roomService.GetRoomDetails();
+            var result = _cityService.GetById(cityId);
             if (result.Success)
                 return Ok(result);
 
@@ -47,9 +37,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(RoomAddDTO roomAddDTO)
+        public IActionResult Add(CityAddDTO cityAddDTO)
         {
-            var result = _roomService.Add(roomAddDTO);
+            var result = _cityService.Add(cityAddDTO);
             if (result.Success)
                 return Ok(result);
 
@@ -57,9 +47,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(RoomDeleteDTO roomDeleteDTO)
+        public IActionResult Delete(CityDeleteDTO cityDeleteDTO)
         {
-            var result = _roomService.Delete(roomDeleteDTO);
+            var result = _cityService.Delete(cityDeleteDTO);
             if (result.Success)
                 return Ok(result);
 
@@ -67,9 +57,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(RoomUpdateDTO roomUpdateDTP)
+        public IActionResult Update(CityUpdateDTO cityUpdateDTP)
         {
-            var result = _roomService.Update(roomUpdateDTP);
+            var result = _cityService.Update(cityUpdateDTP);
             if (result.Success)
                 return Ok(result);
 

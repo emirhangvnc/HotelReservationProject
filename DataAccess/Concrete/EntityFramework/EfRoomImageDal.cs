@@ -11,7 +11,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (HotelReservationContext context = new HotelReservationContext())
             {
-                return context.roomImages.Any(r => r.Id == id);
+                return context.RoomImages.Any(r => r.Id == id);
             }
         }
     }

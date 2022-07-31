@@ -13,10 +13,10 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (HotelReservationContext context = new HotelReservationContext())
             {
-                var result = from r in context.rooms
-                             join h in context.hotels
+                var result = from r in context.Rooms
+                             join h in context.Hotels
                              on r.HotelId equals h.Id
-                             join ri in context.roomImages
+                             join ri in context.RoomImages
                              on r.Id equals ri.RoomId
 
                              select new RoomDetailDTO

@@ -3,10 +3,11 @@ using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation.UserValidator
 {
-    public class UserAddDTOValidator : AbstractValidator<UserAddDTO>
+    public class UserUpdateDTOValidator : AbstractValidator<UserUpdateDTO>
     {
-        public UserAddDTOValidator()
+        public UserUpdateDTOValidator()
         {
+            RuleFor(u => u.Id).NotEmpty().WithMessage($"");
             RuleFor(u => u.FirstName).NotEmpty().WithMessage($"");
             RuleFor(u => u.FirstName).MaximumLength(50).WithName($"");
             RuleFor(u => u.LastName).NotEmpty().WithMessage($"");

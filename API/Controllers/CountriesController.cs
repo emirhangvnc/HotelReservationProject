@@ -1,25 +1,25 @@
 ﻿using Business.Abstract;
-using Entities.DTOs.Concrete.ReservationDTO;
+using Entities.DTOs.Concrete.CountryDTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservationController : ControllerBase
+    public class CountriesController : ControllerBase
     {
-        IReservationService _reservationService;
+        ICountryService _countryService;
 
-        public ReservationController(IReservationService reservationService)
+        public CountriesController(ICountryService countryService)
         {
-            _reservationService = reservationService;
+            _countryService = countryService;
         }
 
         [HttpGet]
         [Route("[action]")]
         public IActionResult GetAll()
         {
-            var result = _reservationService.GetAll();
+            var result = _countryService.GetAll();
             if (result.Success)
                 return Ok(result);
 
@@ -27,9 +27,9 @@ namespace API.Controllers
         }
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetByReservationId(int reservationId)
+        public IActionResult GetByCountryId(int countryId)
         {
-            var result = _reservationService.GetById(reservationId);
+            var result = _countryService.GetById(countryId);
             if (result.Success)
                 return Ok(result);
 
@@ -37,9 +37,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(ReservationAddDTO reservationAddDTO)
+        public IActionResult Add(CountryAddDTO countryAddDTO)
         {
-            var result = _reservationService.Add(reservationAddDTO);
+            var result = _countryService.Add(countryAddDTO);
             if (result.Success)
                 return Ok(result);
 
@@ -47,9 +47,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(ReservationDeleteDTO reservationDeleteDTO)
+        public IActionResult Delete(CountryDeleteDTO countryDeleteDTO)
         {
-            var result = _reservationService.Delete(reservationDeleteDTO);
+            var result = _countryService.Delete(countryDeleteDTO);
             if (result.Success)
                 return Ok(result);
 
@@ -57,9 +57,9 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(ReservationUpdateDTO reservationUpdateDTP)
+        public IActionResult Update(CountryUpdateDTO countryUpdateDTP)
         {
-            var result = _reservationService.Update(reservationUpdateDTP);
+            var result = _countryService.Update(countryUpdateDTP);
             if (result.Success)
                 return Ok(result);
 

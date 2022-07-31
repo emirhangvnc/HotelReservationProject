@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation.RoomValidator;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -34,7 +36,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<RoomDetailDTO>>(_roomDal.GetRoomDetails());
         }
-
+        [ValidationAspect(typeof(RoomAddDTOValidator))]
         public IResult Add(RoomAddDTO addedDto)
         {
             var room = _mapper.Map<Room>(addedDto);
@@ -43,7 +45,7 @@ namespace Business.Concrete
             _roomDal.Add(room);
             return new SuccessResult("Oda Eklendi");
         }
-
+        [ValidationAspect(typeof(RoomDeleteDTOValidator))]
         public IResult Delete(RoomDeleteDTO deletedDto)
         {
             var result = _roomDal.Get(u => u.Id == deletedDto.Id);
@@ -53,7 +55,7 @@ namespace Business.Concrete
             _roomDal.Delete(result);
             return new SuccessResult("Oda Silindi");
         }
-
+        [ValidationAspect(typeof(RoomUpdateDTOValidator))]
         public IResult Update(RoomUpdateDTO updatedDto)
         {
             var result = _roomDal.Get(u => u.Id == updatedDto.Id);

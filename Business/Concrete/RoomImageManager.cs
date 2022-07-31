@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation.RoomImageValidator;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper;
 using Core.Utilities.Results;
@@ -30,10 +32,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<RoomImage>(_roomImageDal.Get(h => h.Id == id), "Oda Resimi Listelendi");
         }
+        [ValidationAspect(typeof(RoomImageAddDTOValidator))]
         public IResult Add(IFormFile file, RoomImageAddDTO addedDto)
         {
             IResult result = BusinessRules.Run(
-                CheckIfImageExtensionValid(file)
+                CheckIfImageExtensionValid(file),
+                CheckIfImageLimitExpired(addedDto.RoomId)
                 );
 
             if (result != null)
@@ -46,6 +50,7 @@ namespace Business.Concrete
             _roomImageDal.Add(image);
             return new SuccessResult("Oda Eklendi");
         }
+        [ValidationAspect(typeof(RoomImageDeleteDTOValidator))]
         public IResult Delete(IFormFile file, RoomImageDeleteDTO deletedDto)
         {
             IResult result = BusinessRules.Run(
@@ -60,6 +65,7 @@ namespace Business.Concrete
             _roomImageDal.Delete(roomImage);
             return new SuccessResult("Oda Resmi Silindi");
         }
+        [ValidationAspect(typeof(RoomImageUpdateDTOValidator))]
         public IResult Update(IFormFile file, RoomImageUpdateDTO updatedDto)
         {
             IResult result = BusinessRules.Run(
@@ -90,6 +96,14 @@ namespace Business.Concrete
             if (_roomImageDal.IsExist(id))
                 return new SuccessResult();
             return new ErrorResult(Messages.HotelImageMustBeExists);
+        }
+
+        private IResult CheckIfImageLimitExpired(int id)
+        {
+            int result = _roomImageDal.GetAll(r => r.RoomId == id).Count;
+            if (result >= 5)
+                return new ErrorResult("En Fazla 5 Oda Resmi Eklenebilir");
+            return new SuccessResult();
         }
     }
 }

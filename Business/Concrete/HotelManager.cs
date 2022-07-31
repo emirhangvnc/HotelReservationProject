@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation.HotelValidator;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,7 +23,6 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Hotel>>(_hotelDal.GetAll());
         }
-
         public IDataResult<Hotel> GetById(int id)
         {
             var result = _hotelDal.Get(h => h.Id == id);
@@ -29,12 +30,11 @@ namespace Business.Concrete
                 return new ErrorDataResult<Hotel>("Böyle Bir Hotel Bulunmamaktadır");
             return new SuccessDataResult<Hotel>(result,"Otel Listelendi");
         }
-
         public IDataResult<List<HotelDetailDTO>> GetHotelDetails()
         {
             return new SuccessDataResult<List<HotelDetailDTO>>(_hotelDal.GetHotelDetails());
         }
-
+        [ValidationAspect(typeof(HotelAddDTOValidator))]
         public IResult Add(HotelAddDTO addedDto)
         {
             var hotel = _mapper.Map<Hotel>(addedDto);
@@ -43,7 +43,7 @@ namespace Business.Concrete
             _hotelDal.Add(hotel);
             return new SuccessResult("Otel Eklendi");
         }
-
+        [ValidationAspect(typeof(HotelDeleteDTOValidator))]
         public IResult Delete(HotelDeleteDTO deletedDto)
         {
             var result = _hotelDal.Get(u => u.Id == deletedDto.Id);
@@ -53,7 +53,7 @@ namespace Business.Concrete
             _hotelDal.Delete(result);
             return new SuccessResult("Otel Silindi");
         }
-
+        [ValidationAspect(typeof(HotelUpdateDTOValidator))]
         public IResult Update(HotelUpdateDTO updatedDto)
         {
             var result = _hotelDal.Get(u => u.Id == updatedDto.Id);
